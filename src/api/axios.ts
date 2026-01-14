@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { MessageResponse } from '../types/todo';
+import { error } from 'console';
 
 export const api = axios.create({
     baseURL: import.meta.env.API_KAY,
@@ -14,7 +15,7 @@ export const getTodo = async() => { //괄호안에 들어가는 것은 만약 ap
         const {data} = await api.get<Response[]>("/posts"); //꺽쇠안에는 있는것은 타입을 말하는데 API 응답으로 Response 배열 안에 있는 타입으로 들어올것이라고 알려주는것
         return data
     } catch {
-        console.error('error');
+        console.error(error);
     }
 }
 
@@ -23,7 +24,7 @@ export const addTodo = async(body : Request) => {
         const {data} = await api.post<MessageResponse>('/posts',body);
         return data
     } catch{
-        console.error('error')
+        console.error(error)
     }
 }
 
@@ -32,7 +33,7 @@ export const authorTodo = async(author : string) => {
         const {data} = await api.get<Response[]>('/posts/author',{params : {author : author}});
         return data
     } catch {
-        console.error('error')
+        console.error(error)
     }
 }
 
@@ -41,7 +42,7 @@ export const putTodo = async(id : number , body : Request) => {
         const {data} = await api.put<MessageResponse>(`/posts/${id}`,body)
         return data
     } catch {
-        console.error('error')
+        console.error(error)
     }
 }
 
@@ -50,6 +51,6 @@ export const DeleteTodo = async(id : number) => {
         const {data} = await api.delete<MessageResponse>(`/posts/${id}`)
         return data
     } catch {
-        console.error('error')
+        console.error(error)
     }
 }
